@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container">
-      <a class="navbar-brand" href="#">Laravel project</a>
+      <a class="navbar-brand" href="#">{{ env('APP_NAME', 'Laravel project') }}</a>
       <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
         class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
         <span class="navbar-toggler-icon"></span>
@@ -12,6 +12,14 @@
             <a @class(['nav-link', 'active' => Route::currentRouteName() == 'home']) aria-current="page" href="{{ route('home') }}">Home</a>
           </li>
 
+          @auth
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('admin.posts.index') }}">Posts</a>
+            </li>
+          @endauth
+        </ul>
+
+        <ul class="navbar-nav mb-2 mb-lg-0">
           @guest
             <li class="nav-item">
               <a class="nav-link" href="{{ route('login') }}">Login</a>
@@ -41,6 +49,7 @@
               </div>
             </li>
           @endguest
+        </ul>
       </div>
     </div>
   </nav>
