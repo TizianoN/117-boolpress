@@ -16,6 +16,12 @@
             <li class="nav-item">
               <a class="nav-link" href="{{ route('admin.posts.index') }}">Posts</a>
             </li>
+
+            @if (Auth::user()->role == 'admin')
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.categories.index') }}">Categorie</a>
+              </li>
+            @endif
           @endauth
         </ul>
 
