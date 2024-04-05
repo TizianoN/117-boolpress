@@ -17,18 +17,22 @@
           <tr>
             <th>ID</th>
             <th>Titolo</th>
+            <th>Categoria</th>
+            <th>Autore</th>
             <th>Slug</th>
-            <th>Estratto</th>
+            {{-- <th>Estratto</th> --}}
             <th></th>
           </tr>
         </thead>
         <tbody>
           @forelse($posts as $post)
             <tr>
-              <td>{{ $post['id'] }}</td>
-              <td>{{ $post['title'] }}</td>
-              <td>{{ $post['slug'] }}</td>
-              <td>{{ $post->getAbstract(50) }}</td>
+              <td>{{ $post->id }}</td>
+              <td>{{ $post->title }}</td>
+              <td>{!! $post->category?->getBadge() !!}</td>
+              <td>{{ $post->user->name }}</td>
+              <td>{{ $post->slug }}</td>
+              {{-- <td>{{ $post->getAbstract(50) }}</td> --}}
               <td>
                 <a class="btn btn-primary py-0" href="{{ route('admin.posts.show', $post) }}">
                   <i class="fa-solid fa-eye fa-xs"></i>

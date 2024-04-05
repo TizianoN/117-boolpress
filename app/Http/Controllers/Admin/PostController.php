@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
-use Illuminate\Http\Request;
+use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -16,7 +17,14 @@ class PostController extends Controller
    */
   public function index()
   {
-    $posts = Post::orderBy('id', 'DESC')->paginate(12);
+    $posts = Post::orderBy('id', 'DESC');
+
+    if (Auth::user()->role != 'admin') {
+      $posts->where('user_id', Auth::id());
+    }
+
+    $posts = $posts->paginate(12);
+
     return view('admin.posts.index', compact('posts'));
   }
 
@@ -26,7 +34,8 @@ class PostController extends Controller
   public function create()
   {
     $post = new Post;
-    return view('admin.posts.form', compact('post'));
+    $categories = Category::all();
+    return view('admin.posts.form', compact('post', 'categories'));
   }
 
   /**
@@ -42,6 +51,7 @@ class PostController extends Controller
 
     $post = new Post;
     $post->fill($data);
+    $post->user_id = Auth::id();
     $post->slug = Str::slug($post->title);
     $post->save();
 
@@ -55,6 +65,9 @@ class PostController extends Controller
    */
   public function show(Post $post)
   {
+    if (Auth::id() != $post->user_id)
+      abort(403);
+
     return view('admin.posts.show', compact('post'));
   }
 
@@ -65,7 +78,11 @@ class PostController extends Controller
    */
   public function edit(Post $post)
   {
-    return view('admin.posts.form', compact('post'));
+    if (Auth::id() != $post->user_id)
+      abort(403);
+
+    $categories = Category::all();
+    return view('admin.posts.form', compact('post', 'categories'));
   }
 
   /**
@@ -77,6 +94,9 @@ class PostController extends Controller
    */
   public function update(UpdatePostRequest $request, Post $post)
   {
+    if (Auth::id() != $post->user_id)
+      abort(403);
+
     $request->validated();
 
     $data = $request->all();
@@ -95,8 +115,10 @@ class PostController extends Controller
    */
   public function destroy(Post $post)
   {
-    $post->delete();
-    return redirect()->route('admin.posts.index');
-  }
+    if (Auth::id() != $post->user_id)
+      abort(403);
 
+    $post->delete();
+    return redirect()->back();
+  }
 }

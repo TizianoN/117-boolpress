@@ -8,9 +8,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-  use HasFactory, SoftDeletes;
+  use HasFactory; //, SoftDeletes;
 
-  protected $fillable = ['title', 'content'];
+  protected $fillable = ['category_id', 'title', 'content'];
+
+  public function category()
+  {
+    return $this->belongsTo(Category::class);
+  }
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
 
   public function getAbstract($n_chars = 30)
   {

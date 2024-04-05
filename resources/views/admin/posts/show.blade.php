@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Lista posts')
+@section('title', 'Dettaglio posts')
 
 @section('content')
   <section>
@@ -10,9 +10,9 @@
         Torna alla lista
       </a>
 
-      <h1 class="mb-4">Vedi Post</h1>
-      <p><strong>{{ $post['title'] }}</strong></p>
-      <p>{{ $post['content'] }}</p>
+      <h1 class="mb-4">{{ $post->title }}</h1>
+      <p><strong>Categoria:</strong> {!! $post->category->getbadge() !!}</p>
+      <p>{{ $post->content }}</p>
     </div>
   </section>
 @endsection

@@ -13,8 +13,8 @@
 
       <h1 class="mb-4">{{ empty($post->id) ? 'Creazione Post' : 'Modifica Post' }}</h1>
 
-      {{-- 
-        @if ($errors->any())
+
+      {{-- @if ($errors->any())
         <div class="alert alert-danger mb-4">
           <ul>
             @foreach ($errors->all() as $error)
@@ -22,8 +22,8 @@
             @endforeach
           </ul>
         </div>
-      @endif 
-      --}}
+      @endif --}}
+
 
       <form action="{{ empty($post->id) ? route('admin.posts.store') : route('admin.posts.update', $post) }}"
         class="row g-3" method="POST">
@@ -33,11 +33,28 @@
 
         @csrf
 
-        <div class="col-12">
+        <div class="col-6">
           <label class="form-label" for="title">Titolo</label>
           <input @class(['form-control', 'is-invalid' => $errors->has('title')]) id="title" name="title" type="text"
-            value="{{ old('title', $post['title']) }}" />
+            value="{{ old('title', $post->title) }}" />
           @error('title')
+            <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
+        </div>
+
+        <div class="col-6">
+          <label class="form-label" for="category_id">Categoria</label>
+          <select @class(['form-select', 'is-invalid' => $errors->has('category_id')]) id="category_id" name="category_id">
+            <option class="d-none" value="">Seleziona una categoria</option>
+
+            @foreach ($categories as $category)
+              <option {{ $category->id == old('category_id', $post->category_id) ? 'selected' : '' }}
+                value="{{ $category->id }}">
+                {{ $category->label }}</option>
+            @endforeach
+          </select>
+
+          @error('category_id')
             <div class="invalid-feedback">{{ $message }}</div>
           @enderror
         </div>
