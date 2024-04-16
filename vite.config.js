@@ -1,9 +1,14 @@
 import { defineConfig } from "vite";
 import laravel from "laravel-vite-plugin";
-const path = require("path"); // <-- require path from node
+
+const path = require("path"); // require path from node
 
 export default defineConfig({
-    server: { https: true }, // Not needed for Vite 5+
+    base: "https://octopus-app-j8toz.ondigitalocean.app/",
+
+    server: {
+        https: true,
+    },
 
     plugins: [
         laravel({
