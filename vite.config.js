@@ -6,9 +6,9 @@ const path = require("path"); // require path from node
 export default defineConfig({
     base: "https://octopus-app-j8toz.ondigitalocean.app/",
 
-    server: {
-        https: true,
-    },
+    // server: {
+    //     https: true,
+    // },
 
     plugins: [
         laravel({
