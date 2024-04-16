@@ -33,6 +33,9 @@ Route::middleware('auth')
       ->name('dashboard');
 
     Route::resource('posts', PostController::class);
+    Route::delete('/posts/{post}/delete-img', [PostController::class, 'destroyImg'])->name('posts.destroy-img');
+    Route::patch('/posts/{post}/update-publish', [PostController::class, 'updatePublish'])->name('posts.update-publish');
+
     Route::resource('categories', CategoryController::class);
   });
 

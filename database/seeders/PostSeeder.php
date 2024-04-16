@@ -28,7 +28,8 @@ class PostSeeder extends Seeder
       $post->category_id = $faker->randomElement($categories_id);
       $post->title = $faker->catchPhrase();
       $post->content = $faker->paragraphs(2, true);
-      $post->slug = Str::slug($post->title);
+      $post->published = $faker->randomElement([true, false]);
+      $post->slug = Post::generateUniqueSlug($post->title);
       $post->save();
     }
   }

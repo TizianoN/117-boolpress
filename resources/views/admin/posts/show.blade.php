@@ -13,6 +13,13 @@
       <h1 class="mb-4">{{ $post->title }}</h1>
       <p><strong>Categoria:</strong> {!! $post->category->getbadge() !!}</p>
       <p>{{ $post->content }}</p>
+      <p>
+        {{ $post->getTagsToText() }}
+      </p>
+
+      @if (!empty($post->image))
+        <img src="{{ asset('storage/' . $post->image) }}" />
+      @endif
     </div>
   </section>
 @endsection

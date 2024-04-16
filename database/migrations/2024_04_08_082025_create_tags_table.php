@@ -12,14 +12,11 @@ return new class extends Migration {
    */
   public function up()
   {
-    Schema::create('posts', function (Blueprint $table) {
+    Schema::create('tags', function (Blueprint $table) {
       $table->id();
-      $table->string('title', 150);
-      $table->string('slug')->unique();
-      $table->text('content');
-      $table->boolean('published')->default(false);
+      $table->string('label', 30);
+      $table->char('color', 7);
       $table->timestamps();
-      // $table->softDeletes();
     });
   }
 
@@ -30,6 +27,6 @@ return new class extends Migration {
    */
   public function down()
   {
-    Schema::dropIfExists('posts');
+    Schema::dropIfExists('tags');
   }
 };

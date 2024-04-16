@@ -18,9 +18,10 @@
             <th>ID</th>
             <th>Titolo</th>
             <th>Categoria</th>
+            <th>Tags</th>
             <th>Autore</th>
+            <th>Pubblicato</th>
             <th>Slug</th>
-            {{-- <th>Estratto</th> --}}
             <th></th>
           </tr>
         </thead>
@@ -30,9 +31,23 @@
               <td>{{ $post->id }}</td>
               <td>{{ $post->title }}</td>
               <td>{!! $post->category?->getBadge() !!}</td>
+              <td>{{ $post->getTagsToText() }}</td>
               <td>{{ $post->user->name }}</td>
+              <td>
+                <form action="{{ route('admin.posts.update-publish', $post) }}" id="form-published-{{ $post->id }}"
+                  method="POST">
+                  @csrf
+                  @method('PATCH')
+
+                  <label class="switch">
+                    <input @checked($post->published) data-post-id="{{ $post->id }}"
+                      id="checkbox-published-{{ $post->id }}" name="published" type="checkbox" value="true">
+                    <span class="slider round"></span>
+                  </label>
+
+                </form>
+              </td>
               <td>{{ $post->slug }}</td>
-              {{-- <td>{{ $post->getAbstract(50) }}</td> --}}
               <td>
                 <a class="btn btn-primary py-0" href="{{ route('admin.posts.show', $post) }}">
                   <i class="fa-solid fa-eye fa-xs"></i>
@@ -89,6 +104,19 @@
       </div>
     </div>
   @endforeach
+@endsection
+
+@section('js')
+  <script>
+    const checkboxes = document.querySelectorAll('input[name="published"]');
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', () => {
+        const formId = 'form-published-' + checkbox.getAttribute('data-post-id');
+        const formEl = document.getElementById(formId);
+        formEl.submit();
+      })
+    });
+  </script>
 @endsection
 
 @section('css')

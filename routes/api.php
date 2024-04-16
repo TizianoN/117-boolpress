@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Api\PostController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::apiResource('posts', PostController::class)->only(['index', 'show']);
+Route::get('posts-by-category/{category_id}', [PostController::class, 'postsByCategory']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+  return $request->user();
 });
