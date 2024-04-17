@@ -19,9 +19,11 @@
 
       <main>
 
-        @dump(env('APP_URL'))
-        @dump(env('APP_URL_FRONTOFFICE'))
-        @dump(env('APP_ASSETS'))
+        {{-- 
+          @dump(env('APP_URL'))
+          @dump(env('APP_URL_FRONTOFFICE'))
+          @dump(env('APP_ASSETS'))
+        --}}
 
         @yield('content')
       </main>
