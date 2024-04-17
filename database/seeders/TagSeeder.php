@@ -21,7 +21,7 @@ class TagSeeder extends Seeder
       'HTML5',
       'CSS3',
       'Bootstrap',
-      'JavaScript ES5',
+      'JavaScript ES6',
       'VueJS 3',
       'Axios',
       'RESTful API',
