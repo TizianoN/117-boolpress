@@ -18,6 +18,7 @@
       @include('layouts.partials.header')
 
       <main>
+        @dump($_SERVER)
         @yield('content')
       </main>
 
