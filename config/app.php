@@ -54,9 +54,9 @@ return [
   |
   */
 
-  'url' => env('APP_URL', 'https://' . $_SERVER['SERVER_NAME']),
+  'url' => env('APP_URL', 'https://' . $_SERVER['SERVER_NAME'] ?? null),
 
-  'asset_url' => env('ASSET_URL', 'https://' . $_SERVER['SERVER_NAME']),
+  'asset_url' => env('ASSET_URL', 'https://' . $_SERVER['SERVER_NAME'] ?? null),
 
   /*
   |--------------------------------------------------------------------------
