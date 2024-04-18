@@ -17,18 +17,7 @@ class AppServiceProvider extends ServiceProvider
    */
   public function register()
   {
-    // // check this one here https://github.com/laravel/framework/issues/33238#issuecomment-897063577
-    // Event::listen(MigrationsStarted::class, function () {
-    //   if (config('databases.allow_disabled_pk')) {
-    //     DB::statement('SET SESSION sql_require_primary_key=0');
-    //   }
-    // });
-
-    // Event::listen(MigrationsEnded::class, function () {
-    //   if (config('databases.allow_disabled_pk')) {
-    //     DB::statement('SET SESSION sql_require_primary_key=1');
-    //   }
-    // });
+    // 
   }
 
   /**

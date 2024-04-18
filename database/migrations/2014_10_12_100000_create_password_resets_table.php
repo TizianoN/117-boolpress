@@ -12,8 +12,6 @@ return new class extends Migration {
    */
   public function up()
   {
-    DB::statement('SET SESSION sql_require_primary_key=0');
-
     Schema::create('password_resets', function (Blueprint $table) {
       $table->string('email')->primary();
       $table->string('token');
